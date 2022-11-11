@@ -1,161 +1,63 @@
-#include<iostream>
-#include<string.h>
+//refer to current object
+#include<Iostream>
+#include<stdlib.h>
 using namespace std;
-
 class Bank
 {
+    int bal;
     public:
-    int accno,i,j;
-    int totalnumoftransaction,nowithdraw,nodiposite,accbal,ag,c,n;
-    float totalamount,total;
-    string name,bn;
-    int samount=5000,slimit,swithdraw,sdiposite,a;
-    int camount=25000,climit,cwithdraw,cdiposite;
-    static int bankcount;
-
-    void Information();
-    void choose();
-    void totalWithdrawal();
-    void totalDiposite();
-    void bankTransection();
-   /* void cdiposite();
-    void cwithdraw();
-    void sdiposite();
-    void swithdraw();
-*/
-
+    static int total_deposit_amt,total_withdraw_amt,total_trans;
+    Bank(int bal)
+    {
+        total_deposit_amt+=bal;
+        this->bal=bal;
+    }
+    int showbalance()
+    {
+        return bal;
+    }
+    int deposit(int deposit)
+    {
+        total_deposit_amt+=deposit;
+        total_trans++;
+        bal=bal+deposit;
+        return bal;
+    }
+ int withdraw(int withdraw)
+ {
+    if(bal>withdraw)
+    {
+        total_trans++;
+        total_withdraw_amt+=withdraw;
+        bal=bal-withdraw;
+        return bal;
+    }
+    else
+    {
+        cout<<"\n Check your balance !!!!!!";
+        return 1;
+    }
+  }
 };
-
-void Bank::Information()
-{
-
-   
-        cout<<"Enter Bank Name :";
-        cin>>bn;
-        cout<<"Enter Account Num :";
-        cin>>accno;
-        cout<<"Enter Your Name :";
-        cin>>name;
-        cout<<"Enter Age :";
-        cin>>ag;
-
-}
-
-
-void Bank::choose()
-{
-    
-    cout<<"\nchoose Account type \n 0 = Saving \n 1 = Current \n 2 = Both Account ";
-    cin>>c;
-        if(c==0)
-        {
-            
-            cout<<"\n\n Your Account is Saving... ";
-            cout<<"\n Saving Account Balance :"<<samount;
-            cout<<"\n Deposite Ammount  : ";
-            cin>>sdiposite;
-            cout<<" Withdrawal Ammount : ";
-            cin>>swithdraw;
-        
-            samount=samount+sdiposite;
-            samount=samount-swithdraw;
-            
-            cout<<"\n After Tranjection  Ammount : "<<samount;
-            
-            cout<<"\n Would you like to transaction  again ?.\n1 = Yes \n2 = No\n";
-                cin>>a;
-                    if(a==1)
-                    {
-                        cout<<"\n Enter Attempt No : ";
-                        cin>>slimit;
-
-                            if(slimit<=3)
-                            {
-                                cout<<"\n Your Account Balance : "<<samount;
-                                cout<<"\n Enter Withdrawal Ammount : ";
-                                cin>>swithdraw;
-                                samount=samount-swithdraw;
-                                cout<<"\n After Transection Account Balance : "<<samount;
-                            }
-                            else
-                            {
-                                cout<<"\n Sorry You can not More Transection on That Day .";
-                            }
-                    }
-        }
-        else if(c==1)
-        {
-            
-            cout<<"\n\n Your Account is Current ...";
-            cout<<"\n Current Account Balance :"<<camount;
-            cout<<"\n Deposite Ammount : ";
-            cin>>cdiposite;
-            cout<<"\n Withdrawal Ammount : ";
-            cin>>cwithdraw;
-
-            camount=camount+cdiposite;
-            camount=camount-cwithdraw;
-
-            cout<<"\n After Tranjection  Ammount : "<<camount;
-
-
-        }
-        else 
-        {
-            cout<<"\n\n You Have Both Account...";
-            cout<<"\n Select  Account type \n 0 = Saving \n 1 = Current ";
-            cin>>n;
-
-            if(n==0)
-            {
-                cout<<"\n Saving Account Balance :"<<samount;
-                cout<<"\n Deposite Ammount  : ";
-                cin>>sdiposite;
-                cout<<"Attempt : ";
-                cin>>slimit;
-
-               
-                cout<<" Withdrawal Ammount : ";
-                cin>>swithdraw;
-        
-                samount=samount+sdiposite;
-                samount=samount-swithdraw;
-                
-                total=samount+camount;
-                cout<<"\n Total Ammount in Saving : "<<samount;
-                cout<<"\n Total Ammout of Both Account  : "<<total;
-
-
-                
-            
-            }
-            else
-            {
-                
-            cout<<"\n Current Account Balance :"<<camount;
-            cout<<"\n Deposite Ammount : ";
-            cin>>cdiposite;
-            cout<<"\n Withdrawal Ammount : ";
-            cin>>cwithdraw;
-
-            camount=camount+cdiposite;
-            camount=camount-cwithdraw;
-            total=samount+camount;
-            cout<<"\n Total Ammount in Current : "<<camount;
-            cout<<"\n Total Ammount of Both Account : "<<total;
-            }
-        }
-
-
-        
-}
+int Bank :: total_deposit_amt=0;
+int Bank :: total_withdraw_amt=0;
+int Bank :: total_trans=0;
 
 int main()
 {
-    Bank x;
-    x.Information();
-    x.choose();
-   // x.totalWithdrawal();
+    system("CLS");
+     int ch,dp = 0,wt;
 
-    
+     Bank a(100),b(200);
+     a.deposit(50);
+     b.deposit(50);
+     b.withdraw(50);
+
+     cout<<"\n Total deposit amt : "<<Bank::total_deposit_amt;
+     cout<<"\n Total withdraw amt : "<<Bank::total_withdraw_amt;
+     cout<<"\n Total no. of transaction : "<<Bank::total_trans;
+
+     cout<<"\n balance a : "<<a.showbalance();
+     cout<<"\n balance b : "<<b.showbalance();
+     
 }
